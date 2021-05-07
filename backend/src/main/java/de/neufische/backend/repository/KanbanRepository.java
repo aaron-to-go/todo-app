@@ -37,5 +37,11 @@ public class KanbanRepository {
         return List.copyOf(kanbanMap.values());
     }
 
+    public void deleteTask(String id) {
+
+        kanbanMap.remove(id);
+
+    }
+
 
 }

@@ -26,7 +26,12 @@ public class KanbanController {
 
     }
 
-//    @PutMapping()
+    @DeleteMapping("todo/{id}")
+    public void deleteTask(@PathVariable String id){
+
+        kanbanService.deleteTask(id);
+
+    }
 
 
 
