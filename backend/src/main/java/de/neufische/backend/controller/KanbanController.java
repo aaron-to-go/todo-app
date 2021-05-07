@@ -1,5 +1,6 @@
 package de.neufische.backend.controller;
 
+import de.neufische.backend.models.AddKanbanTaskDTO;
 import de.neufische.backend.models.KanbanTask;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,12 +12,12 @@ public class KanbanController {
 
 
 
-//    @PostMapping("todo")
-//    public KanbanTask addTodo(KanbanTask newTask){
-//
-//        return KanbanTask;
-//
-//    }
+    @PostMapping("todo")
+    public KanbanTask addTodo(AddKanbanTaskDTO newTask){
+
+        return KanbanTask;
+
+    }
 
 
 
