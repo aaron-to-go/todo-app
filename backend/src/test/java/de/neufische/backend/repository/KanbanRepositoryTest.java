@@ -6,6 +6,8 @@ import de.neufische.backend.utils.IDGenerator;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -35,28 +37,32 @@ class KanbanRepositoryTest {
     void advanceTodoUpdatesTheStatusOfTaskWithSameIdInRepository() {
 
         //GIVEN
-        KanbanRepository givenRepository = new KanbanRepository();
-        givenRepository.addTodo("123", new KanbanTaskDto("Hund", "OPEN"));
+        IDGenerator mockID= Mockito.mock(IDGenerator.class);
+        when(mockID.generateID()).thenReturn("123");
+        KanbanRepository givenRepository = new KanbanRepository(mockID);
+        givenRepository.addToDo(new AddKanbanTaskDTO("Hund", "OPEN"));
 
         //WHEN
         KanbanTask advancedTask = new KanbanTask("123", "Hund", "SOLVED");
-        givenRepository.advanceTodo(advancedTask);
+        KanbanTask actualTask = givenRepository.advanceTask(advancedTask);
 
         //THEN
-        assertThat(givenRepository.getById("123").getStatus(), is("SOLVED"));
+        assertThat(actualTask.getStatus(), is("SOLVED"));
     }
 
     @Test
     void testGetByIdReturnsTaskWithMatchingIdFromRepository() {
         //GIVEN
-        KanbanRepository kanbanRepository = new KanbanRepository();
-        KanbanTaskDto searchedTaskDto = new KanbanTaskDto("Hund", "SOLVED");
+        IDGenerator mockID= Mockito.mock(IDGenerator.class);
+        when(mockID.generateID()).thenReturn("1");
+        KanbanRepository givenRepository = new KanbanRepository(mockID);
+        AddKanbanTaskDTO searchedTaskDto = new AddKanbanTaskDTO("Hund", "SOLVED");
         KanbanTask searchedTask = new KanbanTask("1","Hund", "SOLVED");
-        kanbanRepository.addTodo("1", searchedTaskDto);
+        givenRepository.addToDo(searchedTaskDto);
 
         // WHEN
         KanbanTask expectedTask = new KanbanTask("1", "Hund", "SOLVED");
-        KanbanTask actualTask = kanbanRepository.advanceTodo(searchedTask);
+        KanbanTask actualTask = givenRepository.advanceTask(searchedTask);
 
         // THEN
         assertThat(actualTask, is(expectedTask));
@@ -67,15 +73,17 @@ class KanbanRepositoryTest {
     void deleteTaskRemovesTaskWithMatchingIdFromRepository() {
 
         //GIVEN
-        KanbanRepository kanbanRepository = new KanbanRepository();
-        kanbanRepository.addTodo("1", new KanbanTaskDto("Hund", "SOLVED"));
-        kanbanRepository.addTodo("2", new KanbanTaskDto("Katze", "OPEN"));
+        IDGenerator mockID= Mockito.mock(IDGenerator.class);
+        when(mockID.generateID()).thenReturn("1");
+        KanbanRepository givenRepository = new KanbanRepository(mockID);
+        givenRepository.addToDo(new AddKanbanTaskDTO("Hund", "SOLVED"));
+        givenRepository.addToDo(new AddKanbanTaskDTO("Katze", "OPEN"));
 
         //WHEN
         String removeById = "1";
-        kanbanRepository.deleteTask(removeById);
+        givenRepository.deleteTask(removeById);
 
         //THEN
-        assertThat(kanbanRepository.getById("1"), is(nullValue()));
+        assertThat(givenRepository.getDetails("1"), is(nullValue()));
     }
 }
