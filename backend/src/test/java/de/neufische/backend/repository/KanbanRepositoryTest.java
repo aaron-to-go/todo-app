@@ -32,14 +32,50 @@ class KanbanRepositoryTest {
 
 
     @Test
-    void deleteTask() {
+    void advanceTodoUpdatesTheStatusOfTaskWithSameIdInRepository() {
+
+        //GIVEN
+        KanbanRepository givenRepository = new KanbanRepository();
+        givenRepository.addTodo("123", new KanbanTaskDto("Hund", "OPEN"));
+
+        //WHEN
+        KanbanTask advancedTask = new KanbanTask("123", "Hund", "SOLVED");
+        givenRepository.advanceTodo(advancedTask);
+
+        //THEN
+        assertThat(givenRepository.getById("123").getStatus(), is("SOLVED"));
     }
 
     @Test
-    void getDetails() {
+    void testGetByIdReturnsTaskWithMatchingIdFromRepository() {
+        //GIVEN
+        KanbanRepository kanbanRepository = new KanbanRepository();
+        KanbanTaskDto searchedTaskDto = new KanbanTaskDto("Hund", "SOLVED");
+        KanbanTask searchedTask = new KanbanTask("1","Hund", "SOLVED");
+        kanbanRepository.addTodo("1", searchedTaskDto);
+
+        // WHEN
+        KanbanTask expectedTask = new KanbanTask("1", "Hund", "SOLVED");
+        KanbanTask actualTask = kanbanRepository.advanceTodo(searchedTask);
+
+        // THEN
+        assertThat(actualTask, is(expectedTask));
     }
 
+
     @Test
-    void advanceTask() {
+    void deleteTaskRemovesTaskWithMatchingIdFromRepository() {
+
+        //GIVEN
+        KanbanRepository kanbanRepository = new KanbanRepository();
+        kanbanRepository.addTodo("1", new KanbanTaskDto("Hund", "SOLVED"));
+        kanbanRepository.addTodo("2", new KanbanTaskDto("Katze", "OPEN"));
+
+        //WHEN
+        String removeById = "1";
+        kanbanRepository.deleteTask(removeById);
+
+        //THEN
+        assertThat(kanbanRepository.getById("1"), is(nullValue()));
     }
 }
