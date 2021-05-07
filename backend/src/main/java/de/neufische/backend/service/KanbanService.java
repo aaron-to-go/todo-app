@@ -31,6 +31,10 @@ public class KanbanService {
         return kanbanRepository.getDetails(id);
     }
 
+    public KanbanTask advanceTask(KanbanTask update){
+        return kanbanRepository.advanceTask(update);
+    }
+
     //addTodo PostMapping
 
 //    @GetMapping

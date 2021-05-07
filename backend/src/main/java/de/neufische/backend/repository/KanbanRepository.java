@@ -49,5 +49,13 @@ public class KanbanRepository {
 
     }
 
+    public KanbanTask advanceTask(KanbanTask update) {
+
+        KanbanTask kanbanTask = kanbanMap.get(update.getId());
+        kanbanTask.setStatus(update.getStatus());
+
+        return kanbanTask;
+
+    }
 
 }

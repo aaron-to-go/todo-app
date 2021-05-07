@@ -21,16 +21,13 @@ public class KanbanController {
     public KanbanTask addTodo(@RequestBody AddKanbanTaskDTO newKanbanTask){
 
         KanbanTask newTask = kanbanService.addKanbanTask(newKanbanTask);
-
         return newTask;
 
     }
 
     @DeleteMapping("todo/{id}")
     public void deleteTask(@PathVariable String id){
-
         kanbanService.deleteTask(id);
-
     }
 
     @GetMapping("todo/{id}")
@@ -38,6 +35,10 @@ public class KanbanController {
         return kanbanService.getDetails(id);
     }
 
+    @PutMapping("todo/{id}")
+    public KanbanTask advanceTask(@RequestBody KanbanTask update) {
+        return kanbanService.advanceTask(update);
 
+    }
 
 }
