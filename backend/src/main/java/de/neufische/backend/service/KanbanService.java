@@ -26,6 +26,11 @@ public class KanbanService {
         kanbanRepository.deleteTask(id);
 
     }
+
+    public KanbanTask getDetails(String id) {
+        return kanbanRepository.getDetails(id);
+    }
+
     //addTodo PostMapping
 
 //    @GetMapping

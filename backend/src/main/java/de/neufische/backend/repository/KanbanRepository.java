@@ -43,5 +43,11 @@ public class KanbanRepository {
 
     }
 
+    public KanbanTask getDetails(String id) {
+
+        return kanbanMap.get(id);
+
+    }
+
 
 }

@@ -33,6 +33,11 @@ public class KanbanController {
 
     }
 
+    @GetMapping("todo/{id}")
+    public KanbanTask getDetails(@PathVariable String id) {
+        return kanbanService.getDetails(id);
+    }
+
 
 
 }
