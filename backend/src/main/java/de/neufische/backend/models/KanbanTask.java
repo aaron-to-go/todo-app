@@ -15,9 +15,5 @@ public class KanbanTask {
     private String description;
     private String status;
 
-    public KanbanTask(String id, String description, String status) {
-        this.id = id;
-        this.description = description;
-        this.status = status;
     }
-}
+
