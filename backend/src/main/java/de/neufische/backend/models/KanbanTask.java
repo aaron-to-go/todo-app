@@ -8,8 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+// @Validation
 public class KanbanTask {
 
+    private String id;
     private String description;
     private String status;
 }
