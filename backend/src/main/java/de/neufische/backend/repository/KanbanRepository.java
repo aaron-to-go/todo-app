@@ -33,20 +33,13 @@ public class KanbanRepository {
         return newTask;
     }
 
-    public List<KanbanTask> list() {
-        return List.copyOf(kanbanMap.values());
-    }
 
     public void deleteTask(String id) {
-
         kanbanMap.remove(id);
-
     }
 
     public KanbanTask getDetails(String id) {
-
         return kanbanMap.get(id);
-
     }
 
     public KanbanTask advanceTask(KanbanTask update) {
